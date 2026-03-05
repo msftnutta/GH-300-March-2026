@@ -1,0 +1,230 @@
+<%- include('partials/header', { title: 'Weather Forecast' }) %>
+
+<main class="max-w-5xl mx-auto px-4 py-10 space-y-8">
+
+  <div class="text-center space-y-2">
+    <h1 class="text-3xl md:text-4xl font-extrabold">🌤 Weather Forecast</h1>
+    <p id="weather-location" class="text-white/60 text-sm">Detecting your location...</p>
+  </div>
+
+  <div class="border-t border-white/10">
+    <p id="weather-time" class="text-white/60 text-sm">Detecting your timezone...</p>
+  </div>
+
+
+  <!-- Loading state -->
+  <div id="weather-loading" class="flex justify-center py-16">
+    <div class="flex flex-col items-center gap-4">
+      <div class="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+      <p class="text-white/60 text-sm">Fetching weather data...</p>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div id="weather-error" class="hidden glass rounded-2xl p-8 text-center space-y-3">
+    <p class="text-3xl">⚠️</p>
+    <p id="weather-error-msg" class="text-white/80 font-semibold">Something went wrong.</p>
+    <button onclick="initWeather()" class="px-5 py-2 rounded-full border border-white/30 text-sm hover:bg-white/20 transition">
+      Retry
+    </button>
+  </div>
+
+  <!-- Weather content (hidden until loaded) -->
+  <div id="weather-content" class="hidden space-y-8">
+
+    <!-- Current Conditions -->
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-5">Current Conditions</h2>
+      <div class="flex flex-col md:flex-row items-center gap-8">
+
+        <!-- Main temp -->
+        <div class="text-center md:text-left">
+          <div class="flex items-end gap-2 justify-center md:justify-start">
+            <span id="cur-icon" class="text-6xl">🌡</span>
+            <span id="cur-temp" class="text-7xl font-black text-yellow-300">--</span>
+            <span class="text-3xl font-light text-yellow-300 mb-2">°C</span>
+          </div>
+          <p id="cur-phrase" class="text-white/80 font-medium mt-1 text-lg">---</p>
+          <p id="cur-feelslike" class="text-white/50 text-sm mt-1">Feels like --°C</p>
+        </div>
+
+        <!-- Detail grid -->
+        <div class="grid grid-cols-2 gap-4 flex-1 w-full">
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">Humidity</p>
+            <p id="cur-humidity" class="text-xl font-bold">--%</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">Wind</p>
+            <p id="cur-wind" class="text-xl font-bold">-- km/h</p>
+            <p id="cur-wind-dir" class="text-xs text-white/50">---</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">UV Index</p>
+            <p id="cur-uv" class="text-xl font-bold">--</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">Visibility</p>
+            <p id="cur-visibility" class="text-xl font-bold">-- km</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">Pressure</p>
+            <p id="cur-pressure" class="text-xl font-bold">-- mb</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 space-y-1">
+            <p class="text-xs text-white/40 uppercase tracking-wider">Cloud Cover</p>
+            <p id="cur-cloud" class="text-xl font-bold">--%</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 5-Day Forecast -->
+    <div>
+      <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">5-Day Forecast</h2>
+      <div id="forecast-cards" class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  const WEATHER_ICON_MAP = {
+    1: '☀️', 2: '🌤', 3: '⛅', 4: '🌥', 5: '🌫',
+    6: '🌦', 7: '🌦', 8: '⛈', 11: '🌧', 12: '🌧',
+    13: '🌦', 14: '⛅', 15: '⛈', 16: '⛈', 17: '⛈',
+    18: '🌧', 19: '🌨', 20: '🌨', 21: '🌨', 22: '❄️',
+    23: '🌨', 24: '🧊', 25: '🌧', 26: '🌧', 29: '🌧',
+    30: '🌡', 31: '🥶', 32: '💨', 33: '🌙', 34: '🌙',
+    35: '🌥', 36: '⛅', 37: '🌩', 38: '⛈', 39: '🌧',
+    40: '🌧', 41: '❄️', 42: '🌨', 43: '❄️', 44: '🌨'
+  };
+
+  function getWeatherIcon(iconCode) {
+    return WEATHER_ICON_MAP[iconCode] || '🌡';
+  }
+
+  function getDayLabel(dateStr, index) {
+    if (index === 0) return 'Today';
+    if (index === 1) return 'Tomorrow';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  async function loadWeather(lat, lon, locationName) {
+    try {
+      const res = await fetch(`/weather/api?lat=${lat}&lon=${lon}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to fetch weather');
+      }
+
+      document.getElementById('weather-loading').classList.add('hidden');
+      document.getElementById('weather-content').classList.remove('hidden');
+
+      if (locationName) {
+        document.getElementById('weather-location').textContent = '📍 ' + locationName;
+      }
+
+      // Current conditions
+      const c = data.current;
+      if (c) {
+        document.getElementById('cur-icon').textContent = getWeatherIcon(c.weatherIcon);
+        document.getElementById('cur-temp').textContent = Math.round(c.temperature?.value ?? 0);
+        document.getElementById('cur-phrase').textContent = c.weatherText || '---';
+        document.getElementById('cur-feelslike').textContent =
+          `Feels like ${Math.round(c.realFeelTemperature?.value ?? 0)}°C`;
+        document.getElementById('cur-humidity').textContent = (c.relativeHumidity ?? '--') + '%';
+        document.getElementById('cur-wind').textContent =
+          Math.round(c.wind?.speed?.value ?? 0) + ' km/h';
+        document.getElementById('cur-wind-dir').textContent = c.wind?.direction?.localizedDescription || '';
+        document.getElementById('cur-uv').textContent = c.uvIndex ?? '--';
+        document.getElementById('cur-visibility').textContent =
+          Math.round(c.visibility?.value ?? 0) + ' km';
+        document.getElementById('cur-pressure').textContent =
+          Math.round(c.pressure?.value ?? 0) + ' mb';
+        document.getElementById('cur-cloud').textContent = (c.cloudCover ?? '--') + '%';
+      }
+
+      // 5-day forecast
+      const forecastEl = document.getElementById('forecast-cards');
+      forecastEl.innerHTML = '';
+      (data.forecast || []).forEach((day, i) => {
+        const high = Math.round(day.temperature?.maximum?.value ?? 0);
+        const low = Math.round(day.temperature?.minimum?.value ?? 0);
+        const icon = getWeatherIcon(day.day?.iconCode || day.iconCode);
+        const phrase = day.day?.shortPhrase || day.shortPhrase || '';
+        const label = getDayLabel(day.date, i);
+
+        forecastEl.innerHTML += `
+          <div class="glass rounded-2xl p-5 text-center space-y-2 hover:bg-white/20 transition-colors">
+            <p class="text-xs text-white/50 font-medium">${label}</p>
+            <p class="text-4xl">${icon}</p>
+            <p class="text-xs text-white/60 leading-snug">${phrase}</p>
+            <div class="flex justify-center gap-3 font-bold">
+              <span class="text-yellow-300">${high}°</span>
+              <span class="text-white/40">${low}°</span>
+            </div>
+          </div>`;
+      });
+
+    } catch (err) {
+      document.getElementById('weather-loading').classList.add('hidden');
+      document.getElementById('weather-error').classList.remove('hidden');
+      document.getElementById('weather-error-msg').textContent = err.message;
+    }
+  }
+
+  async function initWeather() {
+    // Reset state
+    document.getElementById('weather-loading').classList.remove('hidden');
+    document.getElementById('weather-content').classList.add('hidden');
+    document.getElementById('weather-error').classList.add('hidden');
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          loadWeather(pos.coords.latitude, pos.coords.longitude, null);
+        },
+        async () => {
+          // Fallback: IP-based location
+          try {
+            const ipData = await fetch('https://ipapi.co/json/').then(r => r.json());
+            if (ipData && ipData.latitude && ipData.longitude) {
+              const name = [ipData.city, ipData.region, ipData.country_name].filter(Boolean).join(', ');
+              loadWeather(ipData.latitude, ipData.longitude, name);
+            } else {
+              throw new Error('Could not determine location.');
+            }
+          } catch (e) {
+            document.getElementById('weather-loading').classList.add('hidden');
+            document.getElementById('weather-error').classList.remove('hidden');
+            document.getElementById('weather-error-msg').textContent =
+              'Location access denied and IP fallback failed. Please allow location access.';
+          }
+        },
+        { timeout: 8000 }
+      );
+    } else {
+      document.getElementById('weather-loading').classList.add('hidden');
+      document.getElementById('weather-error').classList.remove('hidden');
+      document.getElementById('weather-error-msg').textContent = 'Geolocation is not supported by your browser.';
+    }
+  }
+
+  // Auto-start on page load
+  initWeather();
+</script>
+
+<%- include('partials/footer') %>

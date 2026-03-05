@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title + ' | HelloWorld App' : 'HelloWorld App' %></title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { light: '#667eea', dark: '#764ba2' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body class="text-white font-sans">
+
+  <!-- Navigation -->
+  <nav class="glass sticky top-0 z-50 shadow-lg">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-wide hover:text-yellow-300 transition">🌍 HelloWorld</a>
+      <div class="flex gap-6 text-sm font-medium">
+        <a href="/" class="hover:text-yellow-300 transition">Home</a>
+        <a href="/about" class="hover:text-yellow-300 transition">About</a>
+        <a href="/weather" class="hover:text-yellow-300 transition">🌤 Weather</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <%- body %>
+
+  <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "gh-300-march-2026",
+  "version": "1.0.0",
+  "description": "A minimalist static website that displays \"Hello World\" with real-time date, time, and location information based on the visitor's IP address.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msftnutta/GH-300-March-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msftnutta/GH-300-March-2026/issues"
+  },
+  "homepage": "https://github.com/msftnutta/GH-300-March-2026#readme",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "dotenv": "^17.3.1",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1"
+  }
+}
