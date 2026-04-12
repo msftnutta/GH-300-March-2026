@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/msftnutta/GH-300-March-2026#readme",
   "dependencies": {
-    "axios": "^1.13.6",
+    "axios": "^1.15.0",
     "dotenv": "^17.3.1",
     "ejs": "^4.0.1",
     "express": "^5.2.1"
