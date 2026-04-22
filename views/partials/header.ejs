@@ -6,6 +6,8 @@
   <title><%= typeof title !== 'undefined' ? title + ' | HelloWorld App' : 'HelloWorld App' %></title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- i18n: load before body so translations are available to all inline scripts -->
+  <script src="/i18n.js"></script>
   <style>
     body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
     .glass {
@@ -21,10 +23,19 @@
   <nav class="glass sticky top-0 z-50 shadow-lg">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="/" class="text-xl font-bold tracking-wide hover:text-yellow-300 transition-colors">🌍 HelloWorld</a>
-      <div class="flex gap-6 text-sm font-medium">
-        <a href="/" class="hover:text-yellow-300 transition-colors">Home</a>
-        <a href="/about" class="hover:text-yellow-300 transition-colors">About</a>
-        <a href="/weather" class="hover:text-yellow-300 transition-colors">🌤 Weather</a>
+      <div class="flex items-center gap-4">
+        <div class="flex gap-6 text-sm font-medium">
+          <a href="/" data-i18n="nav.home" class="hover:text-yellow-300 transition-colors">Home</a>
+          <a href="/about" data-i18n="nav.about" class="hover:text-yellow-300 transition-colors">About</a>
+          <a href="/weather" data-i18n="nav.weather" class="hover:text-yellow-300 transition-colors">🌤 Weather</a>
+        </div>
+        <!-- Language selector -->
+        <div class="flex gap-1" id="lang-switcher" aria-label="Language selector">
+          <button data-lang-btn="en" onclick="window.i18n.setLanguage('en')" class="px-2 py-0.5 text-xs rounded-full bg-white/10 hover:bg-white/30 transition">EN</button>
+          <button data-lang-btn="zh" onclick="window.i18n.setLanguage('zh')" class="px-2 py-0.5 text-xs rounded-full bg-white/10 hover:bg-white/30 transition">中文</button>
+          <button data-lang-btn="ja" onclick="window.i18n.setLanguage('ja')" class="px-2 py-0.5 text-xs rounded-full bg-white/10 hover:bg-white/30 transition">日本語</button>
+          <button data-lang-btn="hi" onclick="window.i18n.setLanguage('hi')" class="px-2 py-0.5 text-xs rounded-full bg-white/10 hover:bg-white/30 transition">हिन्दी</button>
+        </div>
       </div>
     </div>
   </nav>

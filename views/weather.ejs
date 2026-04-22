@@ -6,17 +6,17 @@
   <section class="space-y-8">
 
     <div class="text-center space-y-2">
-      <h1 class="text-3xl md:text-4xl font-extrabold">🌤 Weather Forecast</h1>
-      <p class="text-white/60 text-sm">🇲🇾 Malaysia — Default Location</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold" data-i18n="weather.title">🌤 Weather Forecast</h1>
+      <p class="text-white/60 text-sm" data-i18n="weather.malaysia_loc">🇲🇾 Malaysia — Default Location</p>
     </div>
 
     <div class="glass rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
       <div>
-        <p class="text-xs text-white/50 uppercase tracking-wider">Location</p>
+        <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="weather.location_label">Location</p>
         <p class="font-semibold">📍 Kuala Lumpur, Malaysia</p>
       </div>
       <div class="text-right">
-        <p class="text-xs text-white/50 uppercase tracking-wider">Malaysia Time (MYT)</p>
+        <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="weather.malaysia_time_label">Malaysia Time (MYT)</p>
         <p id="malaysia-time" class="font-semibold text-yellow-300">--</p>
       </div>
     </div>
@@ -25,7 +25,7 @@
     <div id="my-loading" class="flex justify-center py-16">
       <div class="flex flex-col items-center gap-4">
         <div class="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-        <p class="text-white/60 text-sm">Fetching Malaysia weather...</p>
+        <p class="text-white/60 text-sm" data-i18n="weather.loading_my">Fetching Malaysia weather...</p>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
     <div id="my-error" class="hidden glass rounded-2xl p-8 text-center space-y-3">
       <p class="text-3xl">⚠️</p>
       <p id="my-error-msg" class="text-white/80 font-semibold">Something went wrong.</p>
-      <button onclick="loadMalaysiaWeather()" class="px-5 py-2 rounded-full border border-white/30 text-sm hover:bg-white/20 transition">
+      <button onclick="loadMalaysiaWeather()" class="px-5 py-2 rounded-full border border-white/30 text-sm hover:bg-white/20 transition" data-i18n="weather.retry">
         Retry
       </button>
     </div>
@@ -43,7 +43,7 @@
 
       <!-- Current Conditions -->
       <div class="glass rounded-3xl p-6 md:p-8">
-        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-5">Current Conditions</h2>
+        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-5" data-i18n="weather.conditions">Current Conditions</h2>
         <div class="flex flex-col md:flex-row items-center gap-8">
 
           <div class="text-center md:text-left">
@@ -58,28 +58,28 @@
 
           <div class="grid grid-cols-2 gap-4 flex-1 w-full">
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Humidity</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.humidity">Humidity</p>
               <p id="my-humidity" class="text-xl font-bold">--%</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Wind</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.wind">Wind</p>
               <p id="my-wind" class="text-xl font-bold">-- km/h</p>
               <p id="my-wind-dir" class="text-xs text-white/50">---</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">UV Index</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.uv">UV Index</p>
               <p id="my-uv" class="text-xl font-bold">--</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Visibility</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.visibility">Visibility</p>
               <p id="my-visibility" class="text-xl font-bold">-- km</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Pressure</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.pressure">Pressure</p>
               <p id="my-pressure" class="text-xl font-bold">-- mb</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Cloud Cover</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.cloud">Cloud Cover</p>
               <p id="my-cloud" class="text-xl font-bold">--%</p>
             </div>
           </div>
@@ -89,7 +89,7 @@
 
       <!-- 5-Day Forecast -->
       <div>
-        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">5-Day Forecast</h2>
+        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4" data-i18n="weather.forecast_5day">5-Day Forecast</h2>
         <div id="my-forecast-cards" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
       </div>
 
@@ -103,17 +103,17 @@
   <section id="local-section" class="hidden space-y-8">
 
     <div class="text-center space-y-2">
-      <h2 class="text-2xl md:text-3xl font-extrabold">📍 Your Local Weather</h2>
-      <p id="loc-location-name" class="text-white/60 text-sm">Detecting your location...</p>
+      <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="weather.local_title">📍 Your Local Weather</h2>
+      <p id="loc-location-name" class="text-white/60 text-sm" data-i18n="weather.detecting">Detecting your location...</p>
     </div>
 
     <div class="glass rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
       <div>
-        <p class="text-xs text-white/50 uppercase tracking-wider">Your Timezone</p>
+        <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="weather.your_timezone">Your Timezone</p>
         <p id="loc-timezone" class="font-semibold">--</p>
       </div>
       <div class="text-right">
-        <p class="text-xs text-white/50 uppercase tracking-wider">Local Time</p>
+        <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="weather.local_time">Local Time</p>
         <p id="local-time" class="font-semibold text-blue-300">--</p>
       </div>
     </div>
@@ -122,7 +122,7 @@
     <div id="loc-loading" class="flex justify-center py-16">
       <div class="flex flex-col items-center gap-4">
         <div class="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-        <p class="text-white/60 text-sm">Fetching local weather...</p>
+        <p class="text-white/60 text-sm" data-i18n="weather.loading_loc">Fetching local weather...</p>
       </div>
     </div>
 
@@ -130,7 +130,7 @@
     <div id="loc-error" class="hidden glass rounded-2xl p-8 text-center space-y-3">
       <p class="text-3xl">⚠️</p>
       <p id="loc-error-msg" class="text-white/80 font-semibold">Something went wrong.</p>
-      <button onclick="loadLocalWeather()" class="px-5 py-2 rounded-full border border-white/30 text-sm hover:bg-white/20 transition">
+      <button onclick="loadLocalWeather()" class="px-5 py-2 rounded-full border border-white/30 text-sm hover:bg-white/20 transition" data-i18n="weather.retry">
         Retry
       </button>
     </div>
@@ -140,7 +140,7 @@
 
       <!-- Current Conditions -->
       <div class="glass rounded-3xl p-6 md:p-8">
-        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-5">Current Conditions</h2>
+        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-5" data-i18n="weather.conditions">Current Conditions</h2>
         <div class="flex flex-col md:flex-row items-center gap-8">
 
           <div class="text-center md:text-left">
@@ -155,28 +155,28 @@
 
           <div class="grid grid-cols-2 gap-4 flex-1 w-full">
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Humidity</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.humidity">Humidity</p>
               <p id="loc-humidity" class="text-xl font-bold">--%</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Wind</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.wind">Wind</p>
               <p id="loc-wind" class="text-xl font-bold">-- km/h</p>
               <p id="loc-wind-dir" class="text-xs text-white/50">---</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">UV Index</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.uv">UV Index</p>
               <p id="loc-uv" class="text-xl font-bold">--</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Visibility</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.visibility">Visibility</p>
               <p id="loc-visibility" class="text-xl font-bold">-- km</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Pressure</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.pressure">Pressure</p>
               <p id="loc-pressure" class="text-xl font-bold">-- mb</p>
             </div>
             <div class="glass rounded-2xl p-4 space-y-1">
-              <p class="text-xs text-white/40 uppercase tracking-wider">Cloud Cover</p>
+              <p class="text-xs text-white/40 uppercase tracking-wider" data-i18n="weather.cloud">Cloud Cover</p>
               <p id="loc-cloud" class="text-xl font-bold">--%</p>
             </div>
           </div>
@@ -186,7 +186,7 @@
 
       <!-- 5-Day Forecast -->
       <div>
-        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4">5-Day Forecast</h2>
+        <h2 class="text-sm font-semibold text-white/50 uppercase tracking-widest mb-4" data-i18n="weather.forecast_5day">5-Day Forecast</h2>
         <div id="loc-forecast-cards" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
       </div>
 
@@ -217,16 +217,19 @@
   }
 
   function getDayLabel(dateStr, index) {
-    if (index === 0) return 'Today';
-    if (index === 1) return 'Tomorrow';
+    const translate = window.i18n ? window.i18n.getTranslation.bind(window.i18n) : (k => k);
+    if (index === 0) return translate('weather.today');
+    if (index === 1) return translate('weather.tomorrow');
+    const locale = window.i18n ? window.i18n.getLocale() : 'en-US';
     const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    return d.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric' });
   }
 
   function updateMalaysiaTime() {
     const el = document.getElementById('malaysia-time');
     if (!el) return;
-    el.textContent = new Date().toLocaleTimeString('en-US', {
+    const locale = window.i18n ? window.i18n.getLocale() : 'en-US';
+    el.textContent = new Date().toLocaleTimeString(locale, {
       hour: '2-digit', minute: '2-digit', second: '2-digit',
       timeZone: 'Asia/Kuala_Lumpur'
     });
@@ -235,7 +238,8 @@
   function updateLocalTime() {
     const el = document.getElementById('local-time');
     if (!el) return;
-    el.textContent = new Date().toLocaleTimeString('en-US', {
+    const locale = window.i18n ? window.i18n.getLocale() : 'en-US';
+    el.textContent = new Date().toLocaleTimeString(locale, {
       hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
   }
@@ -243,11 +247,12 @@
   function renderWeatherInto(data, prefix) {
     const c = data.current;
     if (c) {
+      const feelsLikeLabel = window.i18n ? window.i18n.getTranslation('weather.feels_like') : 'Feels like';
       document.getElementById(`${prefix}-icon`).textContent = getWeatherIcon(c.weatherIcon);
       document.getElementById(`${prefix}-temp`).textContent = Math.round(c.temperature?.value ?? 0);
       document.getElementById(`${prefix}-phrase`).textContent = c.weatherText || '---';
       document.getElementById(`${prefix}-feelslike`).textContent =
-        `Feels like ${Math.round(c.realFeelTemperature?.value ?? 0)}°C`;
+        `${feelsLikeLabel} ${Math.round(c.realFeelTemperature?.value ?? 0)}°C`;
       document.getElementById(`${prefix}-humidity`).textContent = (c.relativeHumidity ?? '--') + '%';
       document.getElementById(`${prefix}-wind`).textContent =
         Math.round(c.wind?.speed?.value ?? 0) + ' km/h';

@@ -3,21 +3,21 @@
 <main class="flex items-center justify-center min-h-[calc(100vh-64px)] px-4 py-12">
   <div class="glass rounded-3xl shadow-2xl p-10 max-w-lg w-full text-center space-y-6">
 
-    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight" data-i18n="home.title">
       Hello World! 🌍
     </h1>
 
-    <p class="text-white/70 text-sm uppercase tracking-widest">Live Info Dashboard</p>
+    <p class="text-white/70 text-sm uppercase tracking-widest" data-i18n="home.subtitle">Live Info Dashboard</p>
 
     <!-- Malaysia (Default) -->
     <div class="glass rounded-2xl p-6 space-y-4 text-left">
 
-      <p class="text-xs font-bold text-yellow-300 uppercase tracking-widest">🇲🇾 Malaysia (Default)</p>
+      <p class="text-xs font-bold text-yellow-300 uppercase tracking-widest" data-i18n="home.malaysia_label">🇲🇾 Malaysia (Default)</p>
 
       <div class="flex items-center gap-3">
         <span class="text-2xl">🕐</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Date &amp; Time</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.date_time">Date &amp; Time</p>
           <p id="datetime" class="text-yellow-300 font-bold text-lg">Loading...</p>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="flex items-center gap-3">
         <span class="text-2xl">📍</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Location</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.location">Location</p>
           <p id="location" class="font-semibold text-base">Kuala Lumpur, Malaysia</p>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <div class="flex items-center gap-3">
         <span class="text-2xl">🌐</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Timezone</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.timezone">Timezone</p>
           <p id="timezone" class="font-semibold text-base">Asia/Kuala_Lumpur (UTC+08:00)</p>
         </div>
       </div>
@@ -47,12 +47,12 @@
     <!-- Your Local Info (shown only when user is outside Malaysia) -->
     <div id="local-section" class="hidden glass rounded-2xl p-6 space-y-4 text-left">
 
-      <p class="text-xs font-bold text-blue-300 uppercase tracking-widest">📍 Your Local Info</p>
+      <p class="text-xs font-bold text-blue-300 uppercase tracking-widest" data-i18n="home.local_info">📍 Your Local Info</p>
 
       <div class="flex items-center gap-3">
         <span class="text-2xl">🕐</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Local Date &amp; Time</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.local_datetime">Local Date &amp; Time</p>
           <p id="local-datetime" class="text-blue-300 font-bold text-lg">Loading...</p>
         </div>
       </div>
@@ -62,7 +62,7 @@
       <div class="flex items-center gap-3">
         <span class="text-2xl">📍</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Your Location</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.your_location">Your Location</p>
           <p id="local-location" class="font-semibold text-base">Detecting...</p>
         </div>
       </div>
@@ -72,7 +72,7 @@
       <div class="flex items-center gap-3">
         <span class="text-2xl">🌐</span>
         <div>
-          <p class="text-xs text-white/50 uppercase tracking-wider">Your Timezone</p>
+          <p class="text-xs text-white/50 uppercase tracking-wider" data-i18n="home.your_timezone">Your Timezone</p>
           <p id="local-timezone" class="font-semibold text-base">Detecting...</p>
         </div>
       </div>
@@ -80,7 +80,8 @@
     </div>
 
     <a href="/weather"
-       class="inline-block mt-2 px-6 py-3 rounded-full border border-white/40 text-sm font-semibold hover:bg-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
+       class="inline-block mt-2 px-6 py-3 rounded-full border border-white/40 text-sm font-semibold hover:bg-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
+       data-i18n="home.weather_link">
       🌤 View Weather Forecast →
     </a>
 
