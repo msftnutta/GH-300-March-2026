@@ -6,8 +6,9 @@ function updateDateTime() {
   const el = document.getElementById('datetime');
   if (!el) return;
 
+  const locale = window.i18n ? window.i18n.getLocale() : 'en-US';
   const now = new Date();
-  el.textContent = now.toLocaleString('en-US', {
+  el.textContent = now.toLocaleString(locale, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -25,8 +26,9 @@ function updateLocalDateTime() {
   const el = document.getElementById('local-datetime');
   if (!el) return;
 
+  const locale = window.i18n ? window.i18n.getLocale() : 'en-US';
   const now = new Date();
-  el.textContent = now.toLocaleString('en-US', {
+  el.textContent = now.toLocaleString(locale, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
